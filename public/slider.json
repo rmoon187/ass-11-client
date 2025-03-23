@@ -1,0 +1,56 @@
+[
+    {
+        "title": "Latest Tech Gadgets You Must Have",
+        "img": "https://i.ibb.co.com/XZvfDTBW/s1.jpg",
+        "details": [
+            "Stay ahead with the latest must-have gadgets.",
+            "Explore top-rated smartphones, smartwatches, and accessories.",
+            "Make tasks easier and more efficient with cutting-edge technology."
+        ]
+    },
+    {
+        "title": "Best Budget-Friendly Laptops for Productivity",
+        "img": "https://i.ibb.co.com/tp4BC3XZ/s2.jpg",
+        "details": [
+            "Find budget-friendly laptops without compromising performance.",
+            "Get reliable, high-speed laptops perfect for daily productivity.",
+            "Our top picks ensure quality, durability, and cost-effectiveness."
+        ]
+    },
+    {
+        "title": "Gaming Accessories for the Ultimate Experience",
+        "img": "https://i.ibb.co.com/s9tVWwLS/s3.jpg",
+        "details": [
+            "Upgrade your setup with high-performance gaming accessories.",
+            "Experience precision with mechanical keyboards, headsets, and mice.",
+            "Gear up with tools that enhance speed, accuracy, and comfort."
+        ]
+    },
+    {
+        "title": "Top Smart Home Devices for a Connected Life",
+        "img": "https://i.ibb.co.com/ds4vfvyV/pexels-jakubzerdzicki-29262961.jpg",
+        "details": [
+            "Enhance your home with the best smart devices.",
+            "Control lighting, security, and appliances with ease.",
+            "Upgrade to a smarter, more convenient lifestyle."
+        ]
+    },
+    {
+        "title": "Wireless Earbuds with Superior Sound Quality",
+        "img": "https://i.ibb.co.com/hxCFNd4K/pexels-blue-bird-7242814.jpg",
+        "details": [
+            "Discover top-rated wireless earbuds for seamless audio.",
+            "Enjoy noise cancellation, deep bass, and clear calls.",
+            "Perfect for work, travel, and workouts."
+        ]
+    },
+    {
+        "title": "Essential Work-From-Home Tech Setup",
+        "img": "https://i.ibb.co.com/p6grNNC8/pexels-alphaen-31213677.jpg",
+        "details": [
+            "Boost productivity with the perfect home office gadgets.",
+            "Ergonomic chairs, dual monitors, and noise-canceling headsets.",
+            "Stay comfortable and efficient throughout your workday."
+        ]
+    }
+]
