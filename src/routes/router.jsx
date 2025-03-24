@@ -6,6 +6,8 @@ import Register from "../components/Register";
 import PrivateRoute from "../components/PrivateRoute";
 import NotFound from "../pages/NotFound";
 import AddQuery from "../pages/AddQuery";
+import MyQueries from "../pages/MyQueries";
+import QueryDetails from "../pages/QueryDetails";
 
 
 
@@ -33,10 +35,15 @@ const router = createBrowserRouter([
                 path: '/add-query',
                 element: <PrivateRoute><AddQuery></AddQuery></PrivateRoute>,
             },
-            // {
-            //     path: '/my-queries',
-            //     element: <PrivateRoute><MyQueries></MyQueries></PrivateRoute>,
-            // },
+            {
+                path: '/my-queries',
+                element: <PrivateRoute><MyQueries></MyQueries></PrivateRoute>,
+            },
+            {
+                path: '/query-details/:id',
+                element: <PrivateRoute><QueryDetails></QueryDetails></PrivateRoute>,
+
+            },
 
         ]
     }
