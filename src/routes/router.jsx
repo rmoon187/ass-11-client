@@ -8,6 +8,7 @@ import NotFound from "../pages/NotFound";
 import AddQuery from "../pages/AddQuery";
 import MyQueries from "../pages/MyQueries";
 import QueryDetails from "../pages/QueryDetails";
+import Queries from "../pages/Queries";
 
 
 
@@ -42,6 +43,11 @@ const router = createBrowserRouter([
             {
                 path: '/query-details/:id',
                 element: <PrivateRoute><QueryDetails></QueryDetails></PrivateRoute>,
+
+            },
+            {
+                path: '/allQueries',
+                element: <Queries></Queries>,
 
             },
 

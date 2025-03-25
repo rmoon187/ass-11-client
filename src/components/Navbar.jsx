@@ -37,7 +37,7 @@ const Navbar = () => {
                             </li>
                             <li className="md:ml-[-20px]">
                                 <NavLink
-                                    to="/queries"
+                                    to="/allQueries"
                                     className={({ isActive }) =>
                                         `px-3 py-2 rounded-md transition-all duration-300 ease-in-out ${isActive
                                             ? "bg-white text-green-600 font-semibold"
