@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
 
@@ -9,12 +8,12 @@ const MyRecommendations = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`/api/recommendations?userEmail=${user.email}`)
+            fetch(`http://localhost:5000/recommendations?userEmail=${user.email}`)
                 .then((res) => res.json())
                 .then((data) => setRecommendations(data))
                 .catch((error) => console.error("Error fetching recommendations:", error));
         }
-    }, [user]);
+    }, [user.email]);
 
     const handleDelete = (id, queryId) => {
         Swal.fire({
@@ -27,14 +26,14 @@ const MyRecommendations = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`/api/recommendations/${id}`, {
+                fetch(`http://localhost:5000/recommendations/${id}`, {
                     method: "DELETE",
                 })
                     .then((res) => res.json())
                     .then((data) => {
-                        if (data.success) {
+                        if (data.acknowledged) {
                             setRecommendations(recommendations.filter((rec) => rec._id !== id));
-                            toast.success("Recommendation deleted successfully");
+                            Swal.fire("Deleted!", "Your recommendation has been deleted.", "success");
                             decreaseQueryRecommendationCount(queryId);
                         }
                     })
@@ -44,7 +43,7 @@ const MyRecommendations = () => {
     };
 
     const decreaseQueryRecommendationCount = (queryId) => {
-        fetch(`/api/queries/${queryId}/decrease-count`, {
+        fetch(`http://localhost:5000/my-queries/${queryId}/decrement`, {
             method: "PATCH",
         })
             .then((res) => res.json())
@@ -60,7 +59,9 @@ const MyRecommendations = () => {
                     <thead>
                         <tr className="bg-gray-100">
                             <th className="p-2">Query</th>
-                            <th className="p-2">Recommendation</th>
+                            <th className="p-2">Recommendation Title</th>
+                            <th className="p-2">Recommended Product Name</th>
+                            <th className="p-2">Recommendation Time</th>
                             <th className="p-2">Action</th>
                         </tr>
                     </thead>
@@ -68,7 +69,9 @@ const MyRecommendations = () => {
                         {recommendations.map((rec) => (
                             <tr key={rec._id} className="border-b">
                                 <td className="p-2">{rec.queryTitle}</td>
-                                <td className="p-2">{rec.text}</td>
+                                <td className="p-2">{rec.RecommendationTitle}</td>
+                                <td className="p-2">{rec.RecommendedProductName}</td>
+                                <td className="p-2">{rec.timestamp}</td>
                                 <td className="p-2">
                                     <button
                                         className="btn btn-error text-white"

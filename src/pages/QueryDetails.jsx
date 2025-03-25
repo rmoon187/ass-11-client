@@ -44,7 +44,7 @@ const QueryDetails = () => {
             userName: query?.userName,
             recommenderEmail: user.email,
             recommenderName: user.displayName,
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toString()
         };
         try {
             await fetch("http://localhost:5000/recommendations", {
@@ -53,7 +53,7 @@ const QueryDetails = () => {
                 body: JSON.stringify(recommendationData)
             });
 
-            await fetch(`http://localhost:5000/my-queries/${id}`, { method: "PATCH" });
+            await fetch(`http://localhost:5000/my-queries/${id}/increment`, { method: "PATCH" });
 
             Swal.fire("Success", "Recommendation added successfully!", "success");
             setRecommendations([...recommendations, recommendationData]);
