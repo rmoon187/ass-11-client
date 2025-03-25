@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
@@ -9,7 +9,9 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const location = useLocation()
     const navigate = useNavigate();
+    const goTo = location.state || '/'
 
     const { handleGoogleLogin, handleLogin } = useContext(AuthContext);
 
@@ -18,7 +20,7 @@ const Login = () => {
         handleLogin(email, password)
             .then(() => {
                 Swal.fire("Success", "Login successful!", "success");
-                navigate("/");
+                navigate(goTo);
             })
             .catch((error) => {
                 Swal.fire("Error", error.message, "error");
@@ -29,7 +31,7 @@ const Login = () => {
         handleGoogleLogin()
             .then(() => {
                 Swal.fire("Success", "Login successful!", "success");
-                navigate("/");
+                navigate(goTo);
             })
             .catch((error) => {
                 Swal.fire("Error", error.message, "error");

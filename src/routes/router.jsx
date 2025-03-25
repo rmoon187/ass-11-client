@@ -9,6 +9,7 @@ import AddQuery from "../pages/AddQuery";
 import MyQueries from "../pages/MyQueries";
 import QueryDetails from "../pages/QueryDetails";
 import Queries from "../pages/Queries";
+import MyRecommendations from "../pages/MyRecommendations";
 
 
 
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
             {
                 path: '/query-details/:id',
                 element: <PrivateRoute><QueryDetails></QueryDetails></PrivateRoute>,
+
+            },
+            {
+                path: '/my-recommendations',
+                element: <PrivateRoute><MyRecommendations></MyRecommendations></PrivateRoute>,
 
             },
             {

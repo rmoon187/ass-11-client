@@ -99,7 +99,7 @@ const MyQueries = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {queries.sort((a, b) => b.createdAt - a.createdAt).map(query => (
                         <div key={query._id} className="bg-white p-6 rounded-lg shadow-lg">
-                            <img src={query.productImage} alt={query.productName} className="w-full h-40 object-cover rounded-md" />
+                            <img src={query.productImage} alt={query.productName} className="w-52 h-52 mx-auto rounded-md" />
                             <h2 className="text-xl font-bold mt-4">{query.queryTitle}</h2>
                             <p className="text-gray-600">{query.reasonDetails.slice(0, 100)}...</p>
                             <div className="mt-4 flex gap-2">

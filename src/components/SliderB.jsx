@@ -28,7 +28,7 @@ const SliderB = () => {
     }, []);
 
     return (
-        <div className=" ">
+        <div>
 
             <Swiper
                 className=" lg:h-[700px] object-cover "
@@ -71,7 +71,7 @@ const SliderB = () => {
                                         className="text-gray-800 flex items-center gap-3 leading-relaxed"
                                     >
                                         <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
-                                        <div>{feature}</div>
+                                        {feature}
                                     </p>
                                 ))}
 

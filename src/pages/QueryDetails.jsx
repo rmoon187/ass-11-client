@@ -26,7 +26,7 @@ const QueryDetails = () => {
             .then(res => res.json())
             .then(data => setRecommendations(data));
     }, [id]);
-    console.log(recommendations)
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -57,6 +57,12 @@ const QueryDetails = () => {
 
             Swal.fire("Success", "Recommendation added successfully!", "success");
             setRecommendations([...recommendations, recommendationData]);
+            setFormData({
+                RecommendationTitle: "",
+                RecommendedProductName: "",
+                RecommendedImage: "",
+                RecommendationReason: ""
+            });
         } catch (error) {
             Swal.fire("Error", "Failed to add recommendation.", "error");
         }
@@ -78,10 +84,10 @@ const QueryDetails = () => {
             <div className="mt-6 bg-white shadow-md p-4 rounded-xl">
                 <h3 className="text-xl font-semibold mb-3">Add A Recommendation</h3>
                 <form onSubmit={handleSubmit} className="space-y-3">
-                    <input type="text" name="RecommendationTitle" placeholder="Recommendation Title" required className="input input-bordered w-full" onChange={handleChange} />
-                    <input type="text" name="RecommendedProductName" placeholder="Recommended Product Name" required className="input input-bordered w-full" onChange={handleChange} />
-                    <input type="text" name="RecommendedImage" placeholder="Product Image URL" required className="input input-bordered w-full" onChange={handleChange} />
-                    <textarea name="RecommendationReason" placeholder="Recommendation Reason" required className="textarea textarea-bordered w-full" onChange={handleChange}></textarea>
+                    <input type="text" name="RecommendationTitle" placeholder="Recommendation Title" required className="input input-bordered w-full" value={formData.RecommendationTitle} onChange={handleChange} />
+                    <input type="text" name="RecommendedProductName" placeholder="Recommended Product Name" required className="input input-bordered w-full" value={formData.RecommendedProductName} onChange={handleChange} />
+                    <input type="text" name="RecommendedImage" placeholder="Product Image URL" required className="input input-bordered w-full" value={formData.RecommendedImage} onChange={handleChange} />
+                    <textarea name="RecommendationReason" placeholder="Recommendation Reason" required className="textarea textarea-bordered w-full" value={formData.RecommendationReason} onChange={handleChange}></textarea>
                     <button type="submit" className="btn btn-primary w-full">Add Recommendation</button>
                 </form>
             </div>
