@@ -26,7 +26,7 @@ const AddQuery = () => {
             userEmail: user.email,
             userName: user.displayName,
             userProfileImage: user.photoURL,
-            createdAt: Date.now(),
+            createdAt: new Date(Date.now()).toISOString().replace("T", " ").slice(0, 19),
             recommendationCount: 0,
         };
 

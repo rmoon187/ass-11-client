@@ -2,7 +2,6 @@
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SliderB from "../components/SliderB";
@@ -12,12 +11,15 @@ import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import lottiepic from "../assets/Animation - 1742632591155.json"
 const Home = () => {
-    const [products, setProducts] = useState([]);
-    const [allProducts, setAllProducts] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const navigate = useNavigate()
-    const [loading, setLoading] = useState(true);
+
+    const [queries, setQueries] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/my-queries?limit=6`)
+            .then(res => res.json())
+            .then(data => setQueries(data))
+            .catch(err => console.error(err));
+    }, []);
 
 
 
@@ -25,6 +27,27 @@ const Home = () => {
         <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-all w-11/12 mx-auto space-y-10 my-14">
 
             <SliderB></SliderB>
+
+            {/* recent queries */}
+            <section className="py-12 bg-gray-100 text-center rounded-lg shadow-md">
+                <h2 className="text-3xl font-bold text-gray-800 mb-6">Recent Queries</h2>
+                <div className="grid md:grid-cols-3 gap-6 px-6">
+                    {queries.map((query, index) => (
+                        <motion.div
+                            key={query._id}
+                            className="p-6 bg-white rounded-lg shadow-lg"
+                            whileHover={{ scale: 1.05 }}
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: index * 0.2 }}
+                        >
+                            <h3 className="text-xl font-semibold mb-2 text-blue-700">{query.queryTitle}</h3>
+                            <p className="text-gray-600">{ }</p>
+                            <p className="text-gray-600">{query.reasonDetails}</p>
+                        </motion.div>
+                    ))}
+                </div>
+            </section>
 
             <section className="py-12 bg-green-50 text-center">
                 <h2 className="text-3xl font-bold text-green-600 mb-6">How It Works?</h2>

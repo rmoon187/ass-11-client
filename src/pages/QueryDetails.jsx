@@ -44,7 +44,7 @@ const QueryDetails = () => {
             userName: query?.userName,
             recommenderEmail: user.email,
             recommenderName: user.displayName,
-            timestamp: new Date().toString()
+            timestamp: new Date(Date.now()).toISOString().replace("T", " ").slice(0, 19),
         };
         try {
             await fetch("http://localhost:5000/recommendations", {

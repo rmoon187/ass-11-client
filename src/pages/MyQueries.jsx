@@ -97,7 +97,7 @@ const MyQueries = () => {
             {/* Queries Section */}
             {queries.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {queries.sort((a, b) => b.createdAt - a.createdAt).map(query => (
+                    {queries.map(query => (
                         <div key={query._id} className="bg-white p-6 rounded-lg shadow-lg">
                             <img src={query.productImage} alt={query.productName} className="w-52 h-52 mx-auto rounded-md" />
                             <h2 className="text-xl font-bold mt-4">{query.queryTitle}</h2>

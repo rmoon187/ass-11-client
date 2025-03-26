@@ -123,7 +123,7 @@ const Navbar = () => {
             </div>
 
             {/* Banner Section */}
-            <div className="relative h-[400px] overflow-hidden">
+            <div className="relative h-[350px] overflow-hidden">
                 <img src={bannerImage} alt="Banner" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center">
                     <h1 className="text-white text-5xl font-bold mb-4">Discover the Best Products</h1>
