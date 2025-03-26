@@ -42,7 +42,7 @@ const Home = () => {
                             transition={{ duration: 0.5, delay: index * 0.2 }}
                         >
                             <h3 className="text-xl font-semibold mb-2 text-blue-700">{query.queryTitle}</h3>
-                            <p className="text-gray-600">{ }</p>
+                            <p className="text-gray-600">{query.createdAt}</p>
                             <p className="text-gray-600">{query.reasonDetails}</p>
                         </motion.div>
                     ))}

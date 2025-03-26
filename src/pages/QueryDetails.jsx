@@ -32,6 +32,10 @@ const QueryDetails = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const dateTime = new Date(Date.now()).toLocaleString("en-GB", {
+        hour12: true
+    });
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -44,7 +48,7 @@ const QueryDetails = () => {
             userName: query?.userName,
             recommenderEmail: user.email,
             recommenderName: user.displayName,
-            timestamp: new Date(Date.now()).toISOString().replace("T", " ").slice(0, 19),
+            timestamp: dateTime
         };
         try {
             await fetch("http://localhost:5000/recommendations", {

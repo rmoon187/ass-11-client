@@ -49,12 +49,12 @@ const router = createBrowserRouter([
             },
             {
                 path: '/my-recommendations',
-                element: <PrivateRoute><MyRecommendations></MyRecommendations></PrivateRoute>,
+                element: <MyRecommendations></MyRecommendations>,
 
             },
             {
                 path: '/recommendations',
-                element: <PrivateRoute><RecommendationsForMe></RecommendationsForMe></PrivateRoute>,
+                element: <RecommendationsForMe></RecommendationsForMe>,
 
             },
             {

@@ -19,6 +19,10 @@ const AddQuery = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const dateTime = new Date(Date.now()).toLocaleString("en-GB", {
+        hour12: true
+    });
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const queryData = {
@@ -26,7 +30,7 @@ const AddQuery = () => {
             userEmail: user.email,
             userName: user.displayName,
             userProfileImage: user.photoURL,
-            createdAt: new Date(Date.now()).toISOString().replace("T", " ").slice(0, 19),
+            createdAt: dateTime,
             recommendationCount: 0,
         };
 
