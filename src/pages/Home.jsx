@@ -36,9 +36,16 @@ const Home = () => {
                 <div className="absolute top-0 left-0 w-32 h-32 bg-blue-400 rounded-full filter blur-3xl opacity-20 -ml-20 -mt-20"></div>
 
                 <div className="relative z-10">
-                    <h2 className="text-4xl font-extrabold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-green-600">
-                        Recent Queries
-                    </h2>
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                    >
+                        <h2 className="text-4xl font-extrabold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-green-600">
+                            Recent Queries
+                        </h2>
+                    </motion.div>
                     <div className="grid md:grid-cols-3 gap-8 px-8">
                         {queries.map((query, index) => (
                             <motion.div
@@ -46,8 +53,9 @@ const Home = () => {
                                 className="p-8 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden relative"
                                 whileHover={{ scale: 1.03, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                                 initial={{ opacity: 0, y: 50 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: index * 0.2 }}
+                                viewport={{ once: true }}
                             >
                                 {/* Card accent */}
                                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-green-500"></div>
@@ -88,14 +96,20 @@ const Home = () => {
                 <div className="absolute -top-20 -left-20 w-64 h-64 bg-blue-400 rounded-full filter blur-[100px] opacity-20"></div>
 
                 <div className="relative z-10 max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-16">
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                        className="text-center mb-16"
+                    >
                         <h2 className="text-4xl md:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-green-600">
                             How It Works?
                         </h2>
                         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                             Get personalized product recommendations in just 3 simple steps
                         </p>
-                    </div>
+                    </motion.div>
 
                     <div className="flex flex-col lg:flex-row items-center gap-12">
                         {/* Animation/Lottie container */}
@@ -142,9 +156,10 @@ const Home = () => {
                                 <motion.div
                                     key={index}
                                     className="group relative"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: index * 0.2 }}
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6, delay: index * 0.2 }}
+                                    viewport={{ once: true }}
                                     whileHover={{ scale: 1.02 }}
                                 >
                                     <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-400 to-green-400 rounded-xl opacity-0 group-hover:opacity-100 blur transition duration-200"></div>

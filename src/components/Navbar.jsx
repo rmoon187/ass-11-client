@@ -4,7 +4,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import logo from "../assets/software.png";
 import bannerImage from "../assets/banner.jpg";
 import { Menu, X } from "lucide-react";
-
+import { motion } from "framer-motion";
 const Navbar = () => {
     const { user, handleLogOut } = useContext(AuthContext);
     const [isOpen, setIsOpen] = useState(false);
@@ -178,22 +178,56 @@ const Navbar = () => {
                 </div>
             </div>
 
+
             {/* Banner Section */}
             <div className="relative h-[350px] overflow-hidden">
-                <img src={bannerImage} alt="Banner" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center px-4">
-                    <h1 className="text-white text-3xl md:text-5xl font-bold mb-4">Discover the Best Products</h1>
-                    <p className="text-white text-lg md:text-xl mb-8">
-                        Get personalized recommendations and share your insights with the community.
-                    </p>
-                    <NavLink
-                        to="/queries"
-                        className="bg-white text-green-600 px-6 py-3 rounded-md text-lg font-semibold hover:bg-green-600 hover:text-white transition-all duration-300"
+                <motion.img
+                    src={bannerImage}
+                    alt="Banner"
+                    className="w-full h-full object-cover"
+                    initial={{ scale: 1.1 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 2, ease: "easeOut" }}
+                />
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center px-4"
+                >
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.5 }}
+                        className="text-white text-3xl md:text-5xl font-bold mb-4"
                     >
-                        Explore Now
-                    </NavLink>
-                </div>
+                        Discover the Best Products
+                    </motion.h1>
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.7 }}
+                        className="text-white text-lg md:text-xl mb-8"
+                    >
+                        Get personalized recommendations and share your insights with the community.
+                    </motion.p>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.9 }}
+                    >
+                        <NavLink
+                            to="/queries"
+                            className="bg-white text-green-600 px-6 py-3 rounded-md text-lg font-semibold hover:bg-green-600 hover:text-white transition-all duration-300 shadow-lg"
+                        >
+                            Explore Now
+                        </NavLink>
+                    </motion.div>
+                </motion.div>
             </div>
+
         </header>
     );
 };
