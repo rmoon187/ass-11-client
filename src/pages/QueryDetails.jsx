@@ -17,7 +17,7 @@ const QueryDetails = () => {
 
     useEffect(() => {
         // Fetch query details
-        fetch(`http://localhost:5000/my-queries/${id}`)
+        fetch(`http://localhost:5000/my-queries/${id}`, { credentials: "include" })
             .then(res => res.json())
             .then(data => setQuery(data));
 

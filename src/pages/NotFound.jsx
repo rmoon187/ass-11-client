@@ -29,7 +29,7 @@ const NotFound = () => {
                 {/* Right Section: Text and Button */}
                 <div className="text-center md:text-left" data-aos="fade-left">
                     <h1 className="text-6xl font-extrabold text-yellow-400 animate__animated animate__fadeInDown tracking-wide">
-                        MOVIE PORTAL <span className="text-lg text-white">says</span>
+                        RECOMHUB <span className="text-lg text-white">says</span>
                     </h1>
                     <h2 className="text-3xl font-bold mt-4">Oops! Page Not Found 😢</h2>
                     <p className="mt-4 text-gray-300 text-lg">

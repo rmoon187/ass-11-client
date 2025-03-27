@@ -13,7 +13,7 @@ const MyQueries = () => {
     const modalRef = useRef(null);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/my-queries?userEmail=${user.email}`)
+        fetch(`http://localhost:5000/my-queries?userEmail=${user.email}`, { credentials: "include" })
             .then(res => res.json())
             .then(data => setQueries(data))
             .catch(err => console.error(err));
