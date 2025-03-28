@@ -81,17 +81,28 @@ const MyQueries = () => {
         <div className="container mx-auto p-6">
             {/* Banner Section */}
             <motion.div
-                className="bg-blue-500 text-white text-center p-8 rounded-2xl mb-6 shadow-lg"
+                className="relative bg-gradient-to-r from-green-700 to-blue-800 text-white text-center p-12 rounded-2xl mb-8 shadow-xl overflow-hidden"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
             >
-                <h1 className="text-3xl font-bold">My Queries</h1>
-                <button
-                    className="mt-4 btn btn-light"
-                    onClick={() => navigate("/add-query")}
-                >
-                    Add Query
-                </button>
+                {/* Decorative elements */}
+                <div className="absolute top-0 left-0 w-full h-full opacity-10">
+                    <div className="absolute top-10 left-20 w-32 h-32 bg-white rounded-full mix-blend-overlay"></div>
+                    <div className="absolute bottom-10 right-20 w-40 h-40 bg-purple-300 rounded-full mix-blend-overlay"></div>
+                </div>
+
+                <div className="relative z-10">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">Your Support Queries</h1>
+                    <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-8">
+                        Manage all your product inquiries and support requests in one place
+                    </p>
+                    <button
+                        className="px-8 py-3 text-lg font-semibold rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                        onClick={() => navigate("/add-query")}
+                    >
+                        + Add New Query
+                    </button>
+                </div>
             </motion.div>
 
             {/* Queries Section */}

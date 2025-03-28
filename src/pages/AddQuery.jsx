@@ -35,10 +35,11 @@ const AddQuery = () => {
         };
 
         try {
-            await fetch("http://localhost:5000/my-queries", { credentials: "include" }, {
+            await fetch("http://localhost:5000/my-queries", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(queryData),
+                credentials: "include",
             });
             Swal.fire("Success!", "Query added successfully!", "success");
             navigate("/");
@@ -49,38 +50,83 @@ const AddQuery = () => {
     };
 
     return (
-        <div className="container mx-auto p-6">
+        <div className="container mx-auto p-6 flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-green-100 ">
             <motion.div
-                className="bg-blue-500 text-white text-center p-8 rounded-2xl mb-6 shadow-lg"
+                className="bg-white bg-opacity-90 backdrop-blur-md p-8 rounded-3xl shadow-2xl w-full max-w-xl border border-gray-200"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
             >
-                <h1 className="text-3xl font-bold">Add a Query</h1>
-            </motion.div>
+                <motion.h1
+                    className="text-4xl font-extrabold text-center bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text mb-6"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6 }}
+                >
+                    Add a Query
+                </motion.h1>
 
-            <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
-                <div className="mb-4">
-                    <label className="label">Product Name</label>
-                    <input type="text" name="productName" className="input input-bordered w-full" onChange={handleChange} required />
-                </div>
-                <div className="mb-4">
-                    <label className="label">Product Brand</label>
-                    <input type="text" name="productBrand" className="input input-bordered w-full" onChange={handleChange} required />
-                </div>
-                <div className="mb-4">
-                    <label className="label">Product Image URL</label>
-                    <input type="url" name="productImage" className="input input-bordered w-full" onChange={handleChange} required />
-                </div>
-                <div className="mb-4">
-                    <label className="label">Query Title</label>
-                    <input type="text" name="queryTitle" className="input input-bordered w-full" onChange={handleChange} required />
-                </div>
-                <div className="mb-4">
-                    <label className="label">Boycotting Reason Details</label>
-                    <textarea name="reasonDetails" className="textarea textarea-bordered w-full" onChange={handleChange} required></textarea>
-                </div>
-                <button type="submit" className="btn btn-success w-full">Add Query</button>
-            </form>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <motion.div
+                        className="form-group"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4 }}
+                    >
+                        <label className="font-semibold text-gray-700">Product Name</label>
+                        <input type="text" name="productName" className="input input-bordered w-full" onChange={handleChange} required />
+                    </motion.div>
+
+                    <motion.div
+                        className="form-group"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <label className="font-semibold text-gray-700">Product Brand</label>
+                        <input type="text" name="productBrand" className="input input-bordered w-full" onChange={handleChange} required />
+                    </motion.div>
+
+                    <motion.div
+                        className="form-group"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <label className="font-semibold text-gray-700">Product Image URL</label>
+                        <input type="url" name="productImage" className="input input-bordered w-full" onChange={handleChange} required />
+                    </motion.div>
+
+                    <motion.div
+                        className="form-group"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7 }}
+                    >
+                        <label className="font-semibold text-gray-700">Query Title</label>
+                        <input type="text" name="queryTitle" className="input input-bordered w-full" onChange={handleChange} required />
+                    </motion.div>
+
+                    <motion.div
+                        className="form-group"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <label className="font-semibold text-gray-700">Boycotting Reason Details</label>
+                        <textarea name="reasonDetails" className="textarea textarea-bordered w-full" onChange={handleChange} required></textarea>
+                    </motion.div>
+
+                    <motion.button
+                        type="submit"
+                        className="btn btn-success w-full bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:scale-105 transition transform duration-200"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        Add Query
+                    </motion.button>
+                </form>
+            </motion.div>
         </div>
     );
 };
