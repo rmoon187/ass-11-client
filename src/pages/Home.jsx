@@ -3,7 +3,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SliderB from "../components/SliderB";
 import Marquee from "react-fast-marquee";
 import { CheckCircle, Star, Users } from "lucide-react";
@@ -79,7 +79,7 @@ const Home = () => {
                                         {query.reasonDetails}
                                     </p>
                                     <button className="mt-5 px-4 py-2 text-sm font-medium rounded-full bg-gradient-to-r from-blue-500 to-green-500 text-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
-                                        View Details
+                                        <Link to={`query-details/${query._id}`}>View Details</Link>
                                     </button>
                                 </div>
                             </motion.div>
