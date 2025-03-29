@@ -9,7 +9,7 @@ const MyRecommendations = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:5000/recommendations?userEmail=${user.email}`)
+            fetch(`${import.meta.env.VITE_API_URL}/recommendations?userEmail=${user.email}`)
                 .then((res) => res.json())
                 .then((data) => setRecommendations(data))
                 .catch((error) => console.error("Error fetching recommendations:", error));
@@ -27,7 +27,7 @@ const MyRecommendations = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/recommendations/${id}`, {
+                fetch(`${import.meta.env.VITE_API_URL}/recommendations/${id}`, {
                     method: "DELETE",
                 })
                     .then((res) => res.json())
@@ -44,7 +44,7 @@ const MyRecommendations = () => {
     };
 
     const decreaseQueryRecommendationCount = (queryId) => {
-        fetch(`http://localhost:5000/my-queries/${queryId}/decrement`, {
+        fetch(`${import.meta.env.VITE_API_URL}/my-queries/${queryId}/decrement`, {
             method: "PATCH",
         })
             .then((res) => res.json())

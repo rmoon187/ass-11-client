@@ -35,7 +35,7 @@ const AddQuery = () => {
         };
 
         try {
-            await fetch("http://localhost:5000/my-queries", {
+            await fetch(`${import.meta.env.VITE_API_URL}/my-queries`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(queryData),

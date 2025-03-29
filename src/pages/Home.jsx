@@ -15,7 +15,7 @@ const Home = () => {
     const [queries, setQueries] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/my-queries?limit=6`, { credentials: "include" })
+        fetch(`${import.meta.env.VITE_API_URL}/my-queries?limit=6`, { credentials: "include" })
             .then(res => res.json())
             .then(data => setQueries(data))
             .catch(err => console.error(err));

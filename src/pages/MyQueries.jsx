@@ -13,7 +13,7 @@ const MyQueries = () => {
     const modalRef = useRef(null);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/my-queries?userEmail=${user.email}`, { credentials: "include" })
+        fetch(`${import.meta.env.VITE_API_URL}/my-queries?userEmail=${user.email}`, { credentials: "include" })
             .then(res => res.json())
             .then(data => setQueries(data))
             .catch(err => console.error(err));
@@ -32,7 +32,7 @@ const MyQueries = () => {
 
         if (result.isConfirmed) {
             try {
-                await fetch(`http://localhost:5000/my-queries/${id}`, { method: "DELETE" });
+                await fetch(`${import.meta.env.VITE_API_URL}/my-queries/${id}`, { method: "DELETE" });
                 setQueries(queries.filter(query => query._id !== id));
                 Swal.fire("Deleted!", "Your query has been deleted.", "success");
             } catch (error) {
@@ -57,7 +57,7 @@ const MyQueries = () => {
 
     const handleUpdate = async (updatedQuery) => {
         try {
-            const response = await fetch(`http://localhost:5000/my-queries/${updatedQuery._id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/my-queries/${updatedQuery._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedQuery),

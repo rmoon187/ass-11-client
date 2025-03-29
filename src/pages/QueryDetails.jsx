@@ -16,11 +16,11 @@ const QueryDetails = () => {
     });
 
     useEffect(() => {
-        fetch(`http://localhost:5000/my-queries/${id}`, { credentials: "include" })
+        fetch(`${import.meta.env.VITE_API_URL}/my-queries/${id}`, { credentials: "include" })
             .then(res => res.json())
             .then(data => setQuery(data));
 
-        fetch(`http://localhost:5000/recommendations/${id}`)
+        fetch(`${import.meta.env.VITE_API_URL}/recommendations/${id}`)
             .then(res => res.json())
             .then(data => setRecommendations(data));
     }, [id]);
@@ -48,13 +48,13 @@ const QueryDetails = () => {
             timestamp: dateTime
         };
         try {
-            await fetch("http://localhost:5000/recommendations", {
+            await fetch(`${import.meta.env.VITE_API_URL}/recommendations`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(recommendationData)
             });
 
-            await fetch(`http://localhost:5000/my-queries/${id}/increment`, { method: "PATCH" });
+            await fetch(`${import.meta.env.VITE_API_URL}/my-queries/${id}/increment`, { method: "PATCH" });
 
             Swal.fire({
                 title: "Success",

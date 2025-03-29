@@ -14,7 +14,7 @@ const Queries = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch("http://localhost:5000/my-queries")
+        fetch(`${import.meta.env.VITE_API_URL}/my-queries`)
             .then((res) => res.json())
             .then((data) => {
                 setQueries(data);

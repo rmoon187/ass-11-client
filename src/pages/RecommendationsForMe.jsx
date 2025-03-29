@@ -8,7 +8,7 @@ const RecommendationsForMe = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:5000/recommendations?queryUserEmail=${user.email}`)
+            fetch(`${import.meta.env.VITE_API_URL}/recommendations?queryUserEmail=${user.email}`)
                 .then((res) => res.json())
                 .then((data) => setRecommendations(data))
                 .catch((error) => console.error("Error fetching recommendations:", error));
