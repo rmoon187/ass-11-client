@@ -53,67 +53,112 @@ const MyRecommendations = () => {
     };
 
     return (
-        <div className="container mx-auto p-6">
+        <div className="container mx-auto px-4 py-6 sm:px-6 lg:px-8">
             <motion.h2
-                className="text-3xl font-bold text-center text-green-600 mb-6"
+                className="text-2xl sm:text-3xl font-bold text-center text-green-600 mb-6"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
                 My Recommendations
             </motion.h2>
+
             {recommendations.length > 0 ? (
                 <motion.div
-                    className="overflow-x-auto bg-white shadow-xl rounded-2xl p-6"
+                    className="bg-white shadow-xl rounded-2xl overflow-hidden"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <table className="w-full border border-gray-300 rounded-xl overflow-hidden">
-                        <thead>
-                            <tr className="bg-gradient-to-r from-blue-600 to-green-500 text-white">
-                                <th className="p-4">Query</th>
-                                <th className="p-4">Recommendation Title</th>
-                                <th className="p-4">Recommended Product Name</th>
-                                <th className="p-4">Recommendation Time</th>
-                                <th className="p-4">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {recommendations.map((rec, index) => (
-                                <motion.tr
-                                    key={rec._id}
-                                    className={`border-b transition-all duration-300 ${index % 2 === 0 ? 'bg-blue-100' : 'bg-green-100'} hover:bg-gradient-to-r from-green-300 to-blue-300 hover:scale-[1.02]`}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.4 }}
-                                >
-                                    <td className="p-4 text-gray-700 font-medium">{rec.queryTitle}</td>
-                                    <td className="p-4 text-gray-700 font-medium">{rec.RecommendationTitle}</td>
-                                    <td className="p-4 text-gray-700 font-medium">{rec.RecommendedProductName}</td>
-                                    <td className="p-4 text-gray-700 font-medium">{rec.timestamp}</td>
-                                    <td className="p-4">
+                    {/* Desktop Table */}
+                    <div className="hidden md:block">
+                        <table className="w-full border border-gray-300">
+                            <thead>
+                                <tr className="bg-gradient-to-r from-blue-600 to-green-500 text-white">
+                                    <th className="p-3 text-left">Query</th>
+                                    <th className="p-3 text-left">Title</th>
+                                    <th className="p-3 text-left">Product</th>
+                                    <th className="p-3 text-left">Time</th>
+                                    <th className="p-3 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {recommendations.map((rec, index) => (
+                                    <motion.tr
+                                        key={rec._id}
+                                        className={`border-b transition-all duration-300 ${index % 2 === 0 ? 'bg-blue-50' : 'bg-green-50'} hover:bg-gradient-to-r from-green-200 to-blue-200`}
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.4 }}
+                                    >
+                                        <td className="p-3 text-gray-700">{rec.queryTitle}</td>
+                                        <td className="p-3 text-gray-700">{rec.RecommendationTitle}</td>
+                                        <td className="p-3 text-gray-700">{rec.RecommendedProductName}</td>
+                                        <td className="p-3 text-gray-700">{rec.timestamp}</td>
+                                        <td className="p-3 text-center">
+                                            <button
+                                                className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition text-sm sm:text-base"
+                                                onClick={() => handleDelete(rec._id, rec.queryId)}
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </motion.tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* Mobile Cards */}
+                    <div className="md:hidden space-y-4 p-4">
+                        {recommendations.map((rec) => (
+                            <motion.div
+                                key={rec._id}
+                                className="bg-white border border-gray-200 rounded-lg shadow p-4"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <div className="space-y-2">
+                                    <div>
+                                        <span className="font-semibold">Query: </span>
+                                        <span className="text-gray-700">{rec.queryTitle}</span>
+                                    </div>
+                                    <div>
+                                        <span className="font-semibold">Title: </span>
+                                        <span className="text-gray-700">{rec.RecommendationTitle}</span>
+                                    </div>
+                                    <div>
+                                        <span className="font-semibold">Product: </span>
+                                        <span className="text-gray-700">{rec.RecommendedProductName}</span>
+                                    </div>
+                                    <div>
+                                        <span className="font-semibold">Time: </span>
+                                        <span className="text-gray-700">{rec.timestamp}</span>
+                                    </div>
+                                    <div className="pt-2">
                                         <button
-                                            className="btn btn-error text-white hover:scale-105 transition"
+                                            className="w-full py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
                                             onClick={() => handleDelete(rec._id, rec.queryId)}
                                         >
                                             Delete
                                         </button>
-                                    </td>
-                                </motion.tr>
-                            ))}
-                        </tbody>
-                    </table>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
                 </motion.div>
             ) : (
-                <motion.p
-                    className="text-gray-500 text-center mt-6"
+                <motion.div
+                    className="text-gray-500 text-center mt-10 p-6 bg-white rounded-lg shadow"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
                 >
-                    No recommendations found.
-                </motion.p>
+                    <p className="text-lg">No recommendations found.</p>
+                    <p className="text-sm mt-2">Your recommendations will appear here once you receive them.</p>
+                </motion.div>
             )}
         </div>
     );
