@@ -145,7 +145,7 @@ const Queries = () => {
                     variants={container}
                     initial="hidden"
                     animate="show"
-                    className={`grid ${gridCols} gap-8`}
+                    className={`grid max-w-screen-xl mx-auto ${gridCols} gap-8`}
                 >
                     {filteredQueries.length > 0 ? (
                         filteredQueries.map((query, index) => (

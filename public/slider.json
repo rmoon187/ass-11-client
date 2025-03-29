@@ -1,56 +1,47 @@
 [
     {
-        "title": "Latest Tech Gadgets You Must Have",
-        "img": "https://i.ibb.co.com/XZvfDTBW/s1.jpg",
+        "title": "Eco-Friendly Laptop Alternatives",
+        "img": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45",
         "details": [
-            "Stay ahead with the latest must-have gadgets.",
-            "Explore top-rated smartphones, smartwatches, and accessories.",
-            "Make tasks easier and more efficient with cutting-edge technology."
+            "Discover sustainable laptop brands that prioritize eco-conscious manufacturing.",
+            "Explore energy-efficient devices with long battery life.",
+            "Find alternatives to mainstream laptop brands that support ethical production."
         ]
     },
     {
-        "title": "Best Budget-Friendly Laptops for Productivity",
-        "img": "https://i.ibb.co.com/tp4BC3XZ/s2.jpg",
+        "title": "Best Ethical Smartphone Brands",
+        "img": "https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg",
         "details": [
-            "Find budget-friendly laptops without compromising performance.",
-            "Get reliable, high-speed laptops perfect for daily productivity.",
-            "Our top picks ensure quality, durability, and cost-effectiveness."
+            "Support brands that avoid unfair labor practices and e-waste issues.",
+            "Discover smartphones with repairable designs and sustainable materials.",
+            "Reduce your carbon footprint with ethical tech choices."
         ]
     },
     {
-        "title": "Gaming Accessories for the Ultimate Experience",
-        "img": "https://i.ibb.co.com/s9tVWwLS/s3.jpg",
+        "title": "Sustainable Audio Gadgets",
+        "img": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
         "details": [
-            "Upgrade your setup with high-performance gaming accessories.",
-            "Experience precision with mechanical keyboards, headsets, and mice.",
-            "Gear up with tools that enhance speed, accuracy, and comfort."
+            "Find wireless earbuds and headphones from brands with responsible sourcing.",
+            "Choose durable, long-lasting products that reduce electronic waste.",
+            "Enjoy superior sound quality while making an ethical choice."
         ]
     },
     {
-        "title": "Top Smart Home Devices for a Connected Life",
-        "img": "https://i.ibb.co.com/ds4vfvyV/pexels-jakubzerdzicki-29262961.jpg",
+        "title": "Eco-Conscious Home Devices",
+        "img": "https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg",
         "details": [
-            "Enhance your home with the best smart devices.",
-            "Control lighting, security, and appliances with ease.",
-            "Upgrade to a smarter, more convenient lifestyle."
+            "Upgrade to smart home devices with energy-saving features.",
+            "Control lighting, security, and appliances while reducing power consumption.",
+            "Make your home smarter and greener."
         ]
     },
     {
-        "title": "Wireless Earbuds with Superior Sound Quality",
-        "img": "https://i.ibb.co.com/hxCFNd4K/pexels-blue-bird-7242814.jpg",
+        "title": "Sustainable Work-From-Home Gear",
+        "img": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
         "details": [
-            "Discover top-rated wireless earbuds for seamless audio.",
-            "Enjoy noise cancellation, deep bass, and clear calls.",
-            "Perfect for work, travel, and workouts."
-        ]
-    },
-    {
-        "title": "Essential Work-From-Home Tech Setup",
-        "img": "https://i.ibb.co.com/p6grNNC8/pexels-alphaen-31213677.jpg",
-        "details": [
-            "Boost productivity with the perfect home office gadgets.",
-            "Ergonomic chairs, dual monitors, and noise-canceling headsets.",
-            "Stay comfortable and efficient throughout your workday."
+            "Choose ergonomic home office accessories made from recycled materials.",
+            "Discover monitors and keyboards designed for long-term sustainability.",
+            "Improve productivity while minimizing environmental impact."
         ]
     }
 ]
