@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const MyRecommendations = () => {
     const { user } = useContext(AuthContext);
@@ -9,12 +10,15 @@ const MyRecommendations = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`${import.meta.env.VITE_API_URL}/recommendations?userEmail=${user.email}`)
-                .then((res) => res.json())
-                .then((data) => setRecommendations(data))
+            axios.get(`${import.meta.env.VITE_API_URL}/recommendations`, {
+                params: { userEmail: user.email },
+                withCredentials: true
+            })
+                .then((response) => setRecommendations(response.data))
                 .catch((error) => console.error("Error fetching recommendations:", error));
         }
     }, [user.email]);
+
 
     const handleDelete = (id, queryId) => {
         Swal.fire({

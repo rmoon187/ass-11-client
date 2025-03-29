@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import { AuthContext } from "../provider/AuthProvider";
 import UpdateQueryModal from "../components/UpdateQueryModal";
+import axios from "axios";
 
 const MyQueries = () => {
     const { user } = useContext(AuthContext);
@@ -13,10 +14,22 @@ const MyQueries = () => {
     const modalRef = useRef(null);
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/my-queries?userEmail=${user.email}`, { credentials: "include" })
-            .then(res => res.json())
-            .then(data => setQueries(data))
-            .catch(err => console.error(err));
+        const fetchQueries = async () => {
+            try {
+                const { data } = await axios.get(
+                    `${import.meta.env.VITE_API_URL}/my-queries`,
+                    {
+                        params: { userEmail: user.email },
+                        withCredentials: true,
+                    }
+                );
+                setQueries(data);
+            } catch (error) {
+                console.error("Error fetching queries:", error);
+            }
+        };
+
+        fetchQueries();
     }, [user.email]);
 
     const handleDelete = async (id) => {

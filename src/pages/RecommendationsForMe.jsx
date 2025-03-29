@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 const RecommendationsForMe = () => {
     const { user } = useContext(AuthContext);
@@ -8,9 +9,11 @@ const RecommendationsForMe = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`${import.meta.env.VITE_API_URL}/recommendations?queryUserEmail=${user.email}`)
-                .then((res) => res.json())
-                .then((data) => setRecommendations(data))
+            axios.get(`${import.meta.env.VITE_API_URL}/recommendations`, {
+                params: { queryUserEmail: user.email },
+                withCredentials: true
+            })
+                .then((response) => setRecommendations(response.data))
                 .catch((error) => console.error("Error fetching recommendations:", error));
         }
     }, [user.email]);

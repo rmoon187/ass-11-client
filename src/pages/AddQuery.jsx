@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import { AuthContext } from "../provider/AuthProvider";
+import axios from "axios";
 
 const AddQuery = () => {
     const { user } = useContext(AuthContext);
@@ -35,17 +36,16 @@ const AddQuery = () => {
         };
 
         try {
-            await fetch(`${import.meta.env.VITE_API_URL}/my-queries`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(queryData),
-                credentials: "include",
-            });
+            await axios.post(
+                `${import.meta.env.VITE_API_URL}/my-queries`,
+                queryData,
+                { withCredentials: true }
+            );
             Swal.fire("Success!", "Query added successfully!", "success");
             navigate("/");
         } catch (error) {
             Swal.fire("Error!", "Failed to add query", "error");
-            console.log(error);
+            console.error(error);
         }
     };
 

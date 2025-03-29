@@ -4,6 +4,7 @@ import { CiGrid2H } from "react-icons/ci";
 import { IoGridOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 const Queries = () => {
     const [queries, setQueries] = useState([]);
@@ -14,10 +15,9 @@ const Queries = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch(`${import.meta.env.VITE_API_URL}/my-queries`)
-            .then((res) => res.json())
+        axios.get(`${import.meta.env.VITE_API_URL}/my-queries`, { withCredentials: true })
             .then((data) => {
-                setQueries(data);
+                setQueries(data.data);
                 setIsLoading(false);
             })
             .catch((err) => {
