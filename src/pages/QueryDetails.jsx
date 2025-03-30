@@ -16,7 +16,7 @@ const QueryDetails = () => {
     });
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/my-queries/${id}`, { credentials: "include" })
+        fetch(`${import.meta.env.VITE_API_URL}/my-queries/${id}`)
             .then(res => res.json())
             .then(data => setQuery(data));
 

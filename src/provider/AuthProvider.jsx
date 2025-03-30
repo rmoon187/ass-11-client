@@ -55,13 +55,13 @@ const AuthProvider = ({ children }) => {
                     photoURL: currentUser.photoURL
                 });
                 const user = { email: currentUser.email }
-                axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+                axios.post(`${import.meta.env.VITE_API_URL}/jwt`, user, { withCredentials: true })
                     .then(res => {
                         console.log(res.data)
                         setLoader(false);
                     })
             } else {
-                axios.post('http://localhost:5000/logout', {}, { withCredentials: true })
+                axios.post(`${import.meta.env.VITE_API_URL}/logout`, {}, { withCredentials: true })
                     .then(res => {
                         console.log(res.data)
                         setLoader(false);
