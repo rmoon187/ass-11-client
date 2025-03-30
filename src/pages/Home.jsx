@@ -10,14 +10,14 @@ import { CheckCircle, Star, Users } from "lucide-react";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import lottiepic from "../assets/Animation - 1742632591155.json"
+import axios from "axios";
 const Home = () => {
 
     const [queries, setQueries] = useState([]);
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/my-queries?limit=6`, { credentials: "include" })
-            .then(res => res.json())
-            .then(data => setQueries(data))
+        axios.get(`${import.meta.env.VITE_API_URL}/my-queries?limit=6`, { withCredentials: true })
+            .then(data => setQueries(data.data))
             .catch(err => console.error(err));
     }, []);
 
