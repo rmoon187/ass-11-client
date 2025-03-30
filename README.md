@@ -4,7 +4,7 @@
 RecomHub is a product recommendation platform where users can add and manage product queries, provide alternative recommendations, and engage in discussions. The platform aims to help users make informed purchasing decisions.
 
 ## Live URL
-[Visit RecomHub](#) <!-- Replace with the actual live URL when available -->
+[https://fir-first-p.web.app/](visit site) 
 
 ## Key Features
 - **User Authentication:** Secure login and registration using Firebase.
@@ -27,23 +27,7 @@ The project is built using:
 - **React Icons** – Icon library for UI enhancement.
 - **Axios** – API requests handling.
 
-## Installation & Setup
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/yourusername/recomhub.git
-   ```
-2. Navigate to the project directory:
-   ```sh
-   cd recomhub
-   ```
-3. Install dependencies:
-   ```sh
-   npm install
-   ```
-4. Start the development server:
-   ```sh
-   npm run dev
-   ```
+
 
 ## Contributing
 Contributions are welcome! Feel free to submit a pull request or open an issue for discussion.
