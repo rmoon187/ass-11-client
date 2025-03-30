@@ -4,7 +4,7 @@
 RecomHub is a product recommendation platform where users can add and manage product queries, provide alternative recommendations, and engage in discussions. The platform aims to help users make informed purchasing decisions.
 
 ## Live URL
-[https://fir-first-p.web.app/](visit site) 
+[https://fir-first-p.web.app](visit site) 
 
 ## Key Features
 - **User Authentication:** Secure login and registration using Firebase.
