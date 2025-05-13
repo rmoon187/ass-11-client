@@ -11,6 +11,7 @@ const Queries = () => {
     const [searchText, setSearchText] = useState("");
     const [gridCols, setGridCols] = useState("md:grid-cols-2 lg:grid-cols-3");
     const [isLoading, setIsLoading] = useState(true);
+    const [sortOrder, setSortOrder] = useState("most"); // 'most' or 'least'
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,9 +27,17 @@ const Queries = () => {
             });
     }, []);
 
-    const filteredQueries = queries.filter((query) =>
-        query.queryTitle.toLowerCase().includes(searchText.toLowerCase())
-    );
+    const filteredQueries = queries
+        .filter((query) =>
+            query.queryTitle.toLowerCase().includes(searchText.toLowerCase())
+        )
+        .sort((a, b) => {
+            if (sortOrder === "most") {
+                return b.recommendationCount - a.recommendationCount;
+            } else {
+                return a.recommendationCount - b.recommendationCount;
+            }
+        });
 
     // Animation variants
     const container = {
@@ -128,6 +137,18 @@ const Queries = () => {
                 </div>
 
                 <div className="flex items-center gap-2 sm:gap-4 w-full md:w-auto justify-end">
+                    <div className="flex items-center gap-2">
+                        <span className="text-gray-700 font-medium hidden sm:block text-sm sm:text-base">Sort by:</span>
+                        <select
+                            value={sortOrder}
+                            onChange={(e) => setSortOrder(e.target.value)}
+                            className="select select-bordered select-sm sm:select-md rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                        >
+                            <option value="most">Most Recommended</option>
+                            <option value="least">Least Recommended</option>
+                        </select>
+                    </div>
+                    
                     <span className="text-gray-700 font-medium hidden sm:block text-sm sm:text-base">Layout:</span>
                     <div className="flex gap-1 sm:gap-2">
                         <button
