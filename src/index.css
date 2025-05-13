@@ -23,3 +23,12 @@ html {
     scroll-behavior: smooth;
   }
 }
+/* Custom dark mode styles */
+.dark {
+  color-scheme: dark;
+}
+
+/* Example of custom dark mode styles */
+.dark body {
+  @apply bg-gray-900 text-gray-100;
+}

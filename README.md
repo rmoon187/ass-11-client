@@ -1,36 +1,58 @@
-# RecomHub
+# 📦 RecomHub – Product Recommendation Platform
 
-## Purpose
-RecomHub is a product recommendation platform where users can add and manage product queries, provide alternative recommendations, and engage in discussions. The platform aims to help users make informed purchasing decisions.
+## 🧩 Project Overview  
+**RecomHub** is a dynamic product recommendation platform designed to help users make informed and ethical purchasing decisions. Users can post product queries, share alternative recommendations, and engage in meaningful discussions—particularly around products with social, ethical, or sustainability concerns (e.g., boycotting reasons). With a clean interface, responsive design, and robust authentication system, RecomHub provides a secure and user-friendly experience.
 
-## Live URL
-[visit site](https://fir-first-p.web.app/)
+---
 
-## Key Features
-- **User Authentication:** Secure login and registration using Firebase.
-- **JWT Token Verification:** Used to verify private routes and enhance security.
-- **Query Management:** Users can add, update, and delete their own product queries, including a 'Boycotting Reason Details' field.
-- **Recommendations:** Users can add and remove recommendations for specific product queries.
-- **Comment System:** Users can add, modify, and delete comments on recommendations.
-- **Conditional Navigation:** Dynamic menu items based on authentication status.
-- **Responsive Design:** Optimized for various screen sizes with a blue and green theme.
+## 🚀 Features List
 
-## Tech Stack & Dependencies
-The project is built using:
+- 🔐 **User Authentication**  
+  Secure login and registration using Firebase Authentication.
 
-- **React (Vite)** – Frontend framework for building UI components.
-- **Tailwind CSS & DaisyUI** – Styling and UI components.
-- **Firebase Authentication** – User login and authentication.
-- **JWT (JSON Web Token)** – Used for verifying private routes.
-- **React Router** – Client-side navigation.
-- **SweetAlert2** – User-friendly alerts and notifications.
-- **React Icons** – Icon library for UI enhancement.
-- **Axios** – API requests handling.
+- 🛡️ **JWT Token Verification**  
+  Ensures secure access to private routes and user-specific content.
 
+- 📝 **Query Management**  
+  - Add, edit, or delete your product queries.  
+  - Include detailed "Boycotting Reason" for each query.
 
+- 💡 **Recommendations System**  
+  - Submit alternative product suggestions for any query.  
+  - Delete your own recommendations.
 
-## Contributing
-Contributions are welcome! Feel free to submit a pull request or open an issue for discussion.
+- 💬 **Commenting Functionality**  
+  - Add, update, and remove comments on any recommendation.  
+  - Foster community-driven discussions.
 
-## License
-This project is licensed under the MIT License.
+- 🔄 **Conditional Navigation**  
+  - Dynamic navigation menu based on user login status.  
+  - Non-logged-in users: Home, Queries, Login.  
+  - Logged-in users: Home, Queries, Recommendations For Me, My Queries, My Recommendations, Logout.
+
+- 📱 **Responsive UI Design**  
+  Mobile-first design with a modern blue and green theme for optimal user experience across all devices.
+
+---
+
+## 🛠️ Tech Stack
+
+| Category         | Technology                             |
+|------------------|-----------------------------------------|
+| Frontend         | React (Vite)                            |
+| Styling          | Tailwind CSS, DaisyUI                   |
+| Routing          | React Router                            |
+| Authentication   | Firebase Authentication                 |
+| Authorization    | JSON Web Token (JWT)                    |
+| Alerts & Modals  | SweetAlert2                             |
+| Icons            | React Icons                             |
+| HTTP Requests    | Axios                                   |
+
+---
+
+## ⚙️ Setup Instructions
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/your-username/recomhub.git
+   cd recomhub
