@@ -91,7 +91,7 @@ const MyQueries = () => {
     };
 
     return (
-        <div className="container mx-auto p-6">
+        <div className="container mx-auto p-6 ">
             {/* Banner Section */}
             <motion.div
                 className="relative bg-gradient-to-r from-green-700 to-blue-800 text-white text-center p-12 rounded-2xl mb-8 shadow-xl overflow-hidden"
