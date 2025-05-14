@@ -5,6 +5,12 @@
 
 ---
 
+## 🌐 Live Demo  
+🔗 [Visit RecomHub](https://fir-first-p.web.app/)  
+
+
+---
+
 ## 🚀 Features List
 
 - 🔐 **User Authentication**  
@@ -15,7 +21,7 @@
 
 - 📝 **Query Management**  
   - Add, edit, or delete your product queries.  
-  - Include detailed "Boycotting Reason" for each query.
+  - Include detailed **Boycotting Reason** for each query.
 
 - 💡 **Recommendations System**  
   - Submit alternative product suggestions for any query.  
@@ -27,8 +33,8 @@
 
 - 🔄 **Conditional Navigation**  
   - Dynamic navigation menu based on user login status.  
-  - Non-logged-in users: Home, Queries, Login.  
-  - Logged-in users: Home, Queries, Recommendations For Me, My Queries, My Recommendations, Logout.
+  - **Non-logged-in users**: Home, Queries, Login  
+  - **Logged-in users**: Home, Queries, Recommendations For Me, My Queries, My Recommendations, Logout
 
 - 📱 **Responsive UI Design**  
   Mobile-first design with a modern blue and green theme for optimal user experience across all devices.
@@ -56,3 +62,6 @@
    ```bash
    git clone https://github.com/your-username/recomhub.git
    cd recomhub
+ 2. **Install Dependencies**
+   ```bash
+   npm install
