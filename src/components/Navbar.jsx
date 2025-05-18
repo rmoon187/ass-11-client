@@ -1,9 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import logo from "../assets/software.png";
-import bannerImage from "../assets/banner.jpg";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Moon, Sun } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTheme } from "../provider/ThemeProvider";
 
@@ -11,31 +10,65 @@ const Navbar = () => {
   const { user, handleLogOut } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const { isDarkMode, toggleDarkMode } = useTheme();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrolled]);
+
+  // Common link styles
+  const linkStyles = (isActive) => 
+    `block px-3 py-2 rounded-md transition-all duration-300 ${
+      isActive
+        ? "bg-white text-green-600 font-semibold"
+        : "hover:bg-white hover:text-green-600"
+    }`;
+
+  // Mobile link styles
+  const mobileLinkStyles = (isActive) => 
+    `block px-4 py-3 rounded-md text-lg transition-colors ${
+      isActive
+        ? "bg-white text-green-600 font-semibold"
+        : "hover:bg-white hover:text-green-600"
+    }`;
 
   return (
-    <header className="bg-gradient-to-r from-blue-500 to-green-500 shadow-md">
-      {/* Navigation Bar */}
+    <header className={`fixed w-full z-50 transition-all duration-300 ${
+      scrolled
+        ? isDarkMode
+          ? "bg-gray-900/50 backdrop-blur-sm shadow-lg"
+          : "bg-gradient-to-r from-blue-500/60 to-green-500/60 backdrop-blur-sm shadow-lg"
+        : isDarkMode
+          ? "bg-gray-900/50 backdrop-blur-sm"
+          : "bg-gradient-to-r from-blue-500 to-green-500"
+    }`}>
       <div className="container mx-auto p-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <NavLink to="/" className="flex items-center space-x-2">
             <img src={logo} alt="RecomHub Logo" className="h-10" />
-            <span className="text-white text-2xl font-bold">RecomHub</span>
+            <span className={`text-2xl font-bold ${isDarkMode ? "text-white" : "text-white"}`}>
+              RecomHub
+            </span>
           </NavLink>
 
           {/* Desktop Navigation (lg and up) */}
           <div className="hidden lg:flex items-center space-x-6">
             <nav className="flex items-center space-x-6">
-              <ul className="flex space-x-6 text-white text-lg">
+              <ul className="flex space-x-4">
                 <li>
                   <NavLink
                     to="/"
-                    className={({ isActive }) =>
-                      `block px-3 py-2 rounded-md transition-all duration-300 ${
-                        isActive
-                          ? "bg-white text-green-600 font-semibold"
-                          : "hover:bg-white hover:text-green-600 hover:scale-105"
-                      }`
+                    className={({ isActive }) => 
+                      `${linkStyles(isActive)} ${isDarkMode ? "hover:bg-gray-700" : ""}`
                     }
                   >
                     Home
@@ -44,12 +77,8 @@ const Navbar = () => {
                 <li>
                   <NavLink
                     to="/allQueries"
-                    className={({ isActive }) =>
-                      `block px-3 py-2 rounded-md transition-all duration-300 ${
-                        isActive
-                          ? "bg-white text-green-600 font-semibold"
-                          : "hover:bg-white hover:text-green-600 hover:scale-105"
-                      }`
+                    className={({ isActive }) => 
+                      `${linkStyles(isActive)} ${isDarkMode ? "hover:bg-gray-700" : ""}`
                     }
                   >
                     Queries
@@ -60,26 +89,18 @@ const Navbar = () => {
                     <li>
                       <NavLink
                         to="/recommendations"
-                        className={({ isActive }) =>
-                          `block px-3 py-2 rounded-md transition-all duration-300 ${
-                            isActive
-                              ? "bg-white text-green-600 font-semibold"
-                              : "hover:bg-white hover:text-green-600 hover:scale-105"
-                          }`
+                        className={({ isActive }) => 
+                          `${linkStyles(isActive)} ${isDarkMode ? "hover:bg-gray-700" : ""}`
                         }
                       >
-                        Recommendations for me
+                        Recommendations
                       </NavLink>
                     </li>
                     <li>
                       <NavLink
                         to="/my-queries"
-                        className={({ isActive }) =>
-                          `block px-3 py-2 rounded-md transition-all duration-300 ${
-                            isActive
-                              ? "bg-white text-green-600 font-semibold"
-                              : "hover:bg-white hover:text-green-600 hover:scale-105"
-                          }`
+                        className={({ isActive }) => 
+                          `${linkStyles(isActive)} ${isDarkMode ? "hover:bg-gray-700" : ""}`
                         }
                       >
                         My Queries
@@ -88,69 +109,50 @@ const Navbar = () => {
                     <li>
                       <NavLink
                         to="/my-recommendations"
-                        className={({ isActive }) =>
-                          `block px-3 py-2 rounded-md transition-all duration-300 ${
-                            isActive
-                              ? "bg-white text-green-600 font-semibold"
-                              : "hover:bg-white hover:text-green-600 hover:scale-105"
-                          }`
+                        className={({ isActive }) => 
+                          `${linkStyles(isActive)} ${isDarkMode ? "hover:bg-gray-700" : ""}`
                         }
                       >
-                        My recommendations
+                        My Recs
                       </NavLink>
                     </li>
                   </>
                 )}
               </ul>
               
-              {/* Dark mode toggle button - moved outside the ul */}
+              {/* Dark mode toggle button */}
               <button
                 onClick={toggleDarkMode}
-                className="p-2 rounded-full focus:outline-none hover:bg-white hover:bg-opacity-20 transition-colors duration-300"
+                className={`p-2 rounded-full focus:outline-none transition-colors ${
+                  isDarkMode 
+                    ? "text-yellow-300 hover:bg-gray-700" 
+                    : "text-gray-800 hover:bg-gray-200"
+                }`}
                 aria-label="Toggle dark mode"
               >
-                {isDarkMode ? (
-                  <svg
-                    className="w-6 h-6 text-yellow-300"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    className="w-6 h-6 text-gray-800"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                    />
-                  </svg>
-                )}
+                {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
               </button>
             </nav>
 
             {user ? (
-              <div className="flex items-center gap-3">
-                <img
-                  src={user?.photoURL || "https://via.placeholder.com/40"}
-                  alt="User"
-                  className="w-12 h-12 rounded-full object-cover border-2 border-blue-400"
-                />
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <img
+                    src={user?.photoURL || "https://via.placeholder.com/40"}
+                    alt="User"
+                    className="w-10 h-10 rounded-full object-cover border-2 border-blue-400"
+                  />
+                  <span className={`${isDarkMode ? "text-white" : "text-white"}`}>
+                    {user.displayName || "User"}
+                  </span>
+                </div>
                 <button
                   onClick={handleLogOut}
-                  className="px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 transition-all duration-300"
+                  className={`px-4 py-2 rounded-md transition-colors ${
+                    isDarkMode
+                      ? "bg-red-600 hover:bg-red-700 text-white"
+                      : "bg-red-500 hover:bg-red-600 text-white"
+                  }`}
                 >
                   Logout
                 </button>
@@ -158,192 +160,30 @@ const Navbar = () => {
             ) : (
               <NavLink
                 to="/login"
-                className="bg-white text-green-600 px-4 py-2 rounded-md hover:bg-green-600 hover:text-white transition-all duration-300"
+                className={`px-4 py-2 rounded-md transition-colors ${
+                  isDarkMode
+                    ? "bg-gray-700 hover:bg-gray-600 text-white"
+                    : "bg-white hover:bg-green-600 hover:text-white text-green-600"
+                }`}
               >
-                Log-in
+                Login
               </NavLink>
             )}
           </div>
 
-          {/* Tablet Navigation (md) - Simplified version */}
-          <div className="hidden md:flex lg:hidden items-center space-x-4">
-            <nav className="flex items-center space-x-4">
-              <ul className="flex space-x-2 text-white">
-                <li>
-                  <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                      `block px-2 py-1 rounded-md text-sm ${
-                        isActive
-                          ? "bg-white text-green-600 font-semibold"
-                          : "hover:bg-white hover:text-green-600"
-                      }`
-                    }
-                  >
-                    Home
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/allQueries"
-                    className={({ isActive }) =>
-                      `block px-2 py-1 rounded-md text-sm ${
-                        isActive
-                          ? "bg-white text-green-600 font-semibold"
-                          : "hover:bg-white hover:text-green-600"
-                      }`
-                    }
-                  >
-                    Queries
-                  </NavLink>
-                </li>
-                {user && (
-                  <>
-                    <li>
-                      <NavLink
-                        to="/recommendations"
-                        className={({ isActive }) =>
-                          `block px-2 py-1 rounded-md text-sm ${
-                            isActive
-                              ? "bg-white text-green-600 font-semibold"
-                              : "hover:bg-white hover:text-green-600"
-                          }`
-                        }
-                      >
-                        Recs
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        to="/my-queries"
-                        className={({ isActive }) =>
-                          `block px-2 py-1 rounded-md text-sm ${
-                            isActive
-                              ? "bg-white text-green-600 font-semibold"
-                              : "hover:bg-white hover:text-green-600"
-                          }`
-                        }
-                      >
-                        My Qs
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        to="/my-recommendations"
-                        className={({ isActive }) =>
-                          `block px-2 py-1 rounded-md text-sm ${
-                            isActive
-                              ? "bg-white text-green-600 font-semibold"
-                              : "hover:bg-white hover:text-green-600"
-                          }`
-                        }
-                      >
-                        My recs
-                      </NavLink>
-                    </li>
-                  </>
-                )}
-              </ul>
-              
-              {/* Dark mode toggle button for tablet */}
-              <button
-                onClick={toggleDarkMode}
-                className="p-1 rounded-full focus:outline-none hover:bg-white hover:bg-opacity-20"
-                aria-label="Toggle dark mode"
-              >
-                {isDarkMode ? (
-                  <svg
-                    className="w-5 h-5 text-yellow-300"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    className="w-5 h-5 text-gray-800"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                    />
-                  </svg>
-                )}
-              </button>
-            </nav>
-
-            {user ? (
-              <div className="flex items-center gap-2">
-                <img
-                  src={user?.photoURL || "https://via.placeholder.com/40"}
-                  alt="User"
-                  className="w-8 h-8 rounded-full object-cover border-2 border-blue-400"
-                />
-                <button
-                  onClick={handleLogOut}
-                  className="px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 transition-all duration-300"
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <NavLink
-                to="/login"
-                className="bg-white text-green-600 px-3 py-1 rounded-md text-sm hover:bg-green-600 hover:text-white transition-all duration-300"
-              >
-                Log-in
-              </NavLink>
-            )}
-          </div>
-
-          {/* Mobile Menu Button (sm) */}
-          <div className="md:hidden flex items-center gap-4">
+          {/* Mobile Menu Button */}
+          <div className="flex lg:hidden items-center gap-4">
             {/* Dark mode toggle button for mobile */}
             <button
               onClick={toggleDarkMode}
-              className="p-1 rounded-full focus:outline-none hover:bg-white hover:bg-opacity-20"
+              className={`p-2 rounded-full focus:outline-none ${
+                isDarkMode 
+                  ? "text-yellow-300 hover:bg-gray-700" 
+                  : "text-gray-800 hover:bg-gray-200"
+              }`}
               aria-label="Toggle dark mode"
             >
-              {isDarkMode ? (
-                <svg
-                  className="w-6 h-6 text-yellow-300"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="w-6 h-6 text-gray-800"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                  />
-                </svg>
-              )}
+              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
             
             {user && (
@@ -353,8 +193,11 @@ const Navbar = () => {
                 className="w-10 h-10 rounded-full object-cover border-2 border-blue-400"
               />
             )}
+            
             <button
-              className="text-white focus:outline-none"
+              className={`focus:outline-none ${
+                isDarkMode ? "text-white" : "text-white"
+              }`}
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -362,164 +205,112 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation (sm) */}
-        <div className={`md:hidden ${isOpen ? "block" : "hidden"}`}>
-          <nav className="bg-blue-600 rounded-lg mt-4 p-4 shadow-xl z-50 relative">
-            <ul className="space-y-2 text-white text-lg">
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive }) =>
-                    `block px-3 py-2 rounded-md transition-all duration-300 ${
-                      isActive
-                        ? "bg-white text-green-600 font-semibold"
-                        : "hover:bg-white hover:text-green-600"
-                    }`
-                  }
-                  onClick={() => setIsOpen(false)}
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/allQueries"
-                  className={({ isActive }) =>
-                    `block px-3 py-2 rounded-md transition-all duration-300 ${
-                      isActive
-                        ? "bg-white text-green-600 font-semibold"
-                        : "hover:bg-white hover:text-green-600"
-                    }`
-                  }
-                  onClick={() => setIsOpen(false)}
-                >
-                  Queries
-                </NavLink>
-              </li>
-              {user && (
-                <>
-                  <li>
-                    <NavLink
-                      to="/recommendations"
-                      className={({ isActive }) =>
-                        `block px-3 py-2 rounded-md transition-all duration-300 ${
-                          isActive
-                            ? "bg-white text-green-600 font-semibold"
-                            : "hover:bg-white hover:text-green-600"
-                        }`
-                      }
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Recommendations for me
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/my-queries"
-                      className={({ isActive }) =>
-                        `block px-3 py-2 rounded-md transition-all duration-300 ${
-                          isActive
-                            ? "bg-white text-green-600 font-semibold"
-                            : "hover:bg-white hover:text-green-600"
-                        }`
-                      }
-                      onClick={() => setIsOpen(false)}
-                    >
-                      My Queries
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/my-recommendations"
-                      className={({ isActive }) =>
-                        `block px-3 py-2 rounded-md transition-all duration-300 ${
-                          isActive
-                            ? "bg-white text-green-600 font-semibold"
-                            : "hover:bg-white hover:text-green-600"
-                        }`
-                      }
-                      onClick={() => setIsOpen(false)}
-                    >
-                      My Recommendations
-                    </NavLink>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => {
-                        handleLogOut();
-                        setIsOpen(false);
-                      }}
-                      className="w-full text-left px-3 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 transition-all duration-300"
-                    >
-                      Logout
-                    </button>
-                  </li>
-                </>
-              )}
-              {!user && (
+        {/* Mobile Navigation Menu */}
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className={`lg:hidden mt-4 overflow-hidden rounded-lg shadow-xl ${
+              isDarkMode ? "bg-gray-800" : "bg-white"
+            }`}
+          >
+            <nav className="p-4">
+              <ul className="space-y-2">
                 <li>
                   <NavLink
-                    to="/login"
-                    className="block px-3 py-2 rounded-md bg-white text-green-600 hover:bg-green-600 hover:text-white transition-all duration-300"
+                    to="/"
+                    className={({ isActive }) => 
+                      `${mobileLinkStyles(isActive)} ${isDarkMode ? "hover:bg-gray-700" : ""}`
+                    }
                     onClick={() => setIsOpen(false)}
                   >
-                    Log-in
+                    Home
                   </NavLink>
                 </li>
-              )}
-            </ul>
-          </nav>
-        </div>
-      </div>
-
-      {/* Banner Section - Responsive */}
-      <div className="relative h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] overflow-hidden">
-        <motion.img
-          src={bannerImage}
-          alt="Banner"
-          className="w-full h-full object-cover"
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 2, ease: "easeOut" }}
-        />
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center px-4"
-        >
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4"
-          >
-            Discover the Best Products
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="text-white text-base sm:text-lg md:text-xl mb-4 sm:mb-6 md:mb-8 max-w-2xl"
-          >
-            Get personalized recommendations and share your insights with the
-            community.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-          >
-            <NavLink
-              to="/allQueries"
-              className="bg-white text-green-600 px-4 py-2 sm:px-6 sm:py-3 rounded-md text-base sm:text-lg font-semibold hover:bg-green-600 hover:text-white transition-all duration-300 shadow-lg"
-            >
-              Explore Now
-            </NavLink>
+                <li>
+                  <NavLink
+                    to="/allQueries"
+                    className={({ isActive }) => 
+                      `${mobileLinkStyles(isActive)} ${isDarkMode ? "hover:bg-gray-700" : ""}`
+                    }
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Queries
+                  </NavLink>
+                </li>
+                {user && (
+                  <>
+                    <li>
+                      <NavLink
+                        to="/recommendations"
+                        className={({ isActive }) => 
+                          `${mobileLinkStyles(isActive)} ${isDarkMode ? "hover:bg-gray-700" : ""}`
+                        }
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Recommendations
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/my-queries"
+                        className={({ isActive }) => 
+                          `${mobileLinkStyles(isActive)} ${isDarkMode ? "hover:bg-gray-700" : ""}`
+                        }
+                        onClick={() => setIsOpen(false)}
+                      >
+                        My Queries
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/my-recommendations"
+                        className={({ isActive }) => 
+                          `${mobileLinkStyles(isActive)} ${isDarkMode ? "hover:bg-gray-700" : ""}`
+                        }
+                        onClick={() => setIsOpen(false)}
+                      >
+                        My Recommendations
+                      </NavLink>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => {
+                          handleLogOut();
+                          setIsOpen(false);
+                        }}
+                        className={`w-full text-left px-4 py-3 rounded-md transition-colors ${
+                          isDarkMode
+                            ? "bg-red-600 hover:bg-red-700 text-white"
+                            : "bg-red-500 hover:bg-red-600 text-white"
+                        }`}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </>
+                )}
+                {!user && (
+                  <li>
+                    <NavLink
+                      to="/login"
+                      className={`block px-4 py-3 rounded-md transition-colors ${
+                        isDarkMode
+                          ? "bg-gray-700 hover:bg-gray-600 text-white"
+                          : "bg-green-600 hover:bg-green-700 text-white"
+                      }`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Login
+                    </NavLink>
+                  </li>
+                )}
+              </ul>
+            </nav>
           </motion.div>
-        </motion.div>
+        )}
       </div>
     </header>
   );

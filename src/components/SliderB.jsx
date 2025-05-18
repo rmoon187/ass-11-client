@@ -36,12 +36,12 @@ const SliderB = () => {
             <Swiper
                 className="h-[300px] md:h-[400px] lg:h-[700px] object-cover"
                 modules={[Autoplay, Navigation, Pagination, Scrollbar, A11y]}
-                autoplay={{
-                    delay: 3000,
-                    disableOnInteraction: false,
-                    pauseOnMouseEnter: true,
-                    waitForTransition: true
-                }}
+                // autoplay={{
+                //     delay: 3000,
+                //     disableOnInteraction: false,
+                //     pauseOnMouseEnter: true,
+                //     waitForTransition: true
+                // }}
                 loop={shouldLoop}
                 spaceBetween={20}
                 slidesPerView={1}
