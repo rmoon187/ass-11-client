@@ -1,106 +1,125 @@
-/* eslint-disable react/prop-types */
-import {
-    A11y,
-    Autoplay,
-    Navigation,
-    Pagination,
-    Scrollbar,
-} from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
+import { useEffect, useState, useRef } from "react";
 import "swiper/css";
-import "swiper/css/autoplay";
+import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import { useEffect, useState } from "react";
-import SwiperCore from 'swiper';
-
-// Initialize Swiper modules
-SwiperCore.use([Autoplay, Navigation, Pagination, Scrollbar, A11y]);
 
 const SliderB = () => {
-    const [slide, setSlide] = useState([]);
-    const [swiperInitialized, setSwiperInitialized] = useState(false);
+  const [slides, setSlides] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const swiperRef = useRef(null);
 
-    useEffect(() => {
-        fetch("/slider.json")
-            .then(res => res.json())
-            .then(data => setSlide(data))
-            .catch(error => console.error("Error fetching products:", error));
-    }, []);
+  useEffect(() => {
+    const controller = new AbortController();
+    
+    const fetchSlides = async () => {
+      try {
+        const response = await fetch("/slider.json", {
+          signal: controller.signal
+        });
+        
+        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+        
+        const data = await response.json();
+        setSlides(data.slice(0, 5)); // Limit to 5 slides for performance
+        setLoading(false);
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          setError(err.message);
+          setLoading(false);
+        }
+      }
+    };
 
-    const shouldLoop = slide.length >= 3;
+    fetchSlides();
+    
+    return () => controller.abort();
+  }, []);
 
+  if (loading) {
     return (
-        <div className="relative">
-            <Swiper
-                className="h-[300px] md:h-[400px] lg:h-[700px] object-cover"
-                modules={[Autoplay, Navigation, Pagination, Scrollbar, A11y]}
-                // autoplay={{
-                //     delay: 3000,
-                //     disableOnInteraction: false,
-                //     pauseOnMouseEnter: true,
-                //     waitForTransition: true
-                // }}
-                loop={shouldLoop}
-                spaceBetween={20}
-                slidesPerView={1}
-                speed={1200}
-                navigation
-                pagination={{ clickable: true }}
-                onSwiper={() => setSwiperInitialized(true)}
-            >
-                {slide.map((item, index) => (
-                    <SwiperSlide className="relative" key={index}>
-                        <img
-                            className="rounded-xl w-full h-full object-cover"
-                            src={item.img}
-                            alt={item.title}
-                            loading="lazy"
-                        />
-
-                        {/* Badge - Responsive positioning and size */}
-                        <span className="absolute top-4 right-4 md:top-6 md:right-6 bg-gradient-to-r from-blue-500 to-green-500 text-white text-xs md:text-sm font-semibold px-3 py-1 md:px-4 md:py-1 rounded-full shadow-lg">
-                            Explore queries
-                        </span>
-
-                        {/* Improved Responsive Content Overlay */}
-                        <div className=" hidden md:flex absolute bottom-0 left-0 right-0 p-4 md:bottom-8 md:left-8 md:right-auto md:p-0 lg:top-1/2 lg:left-16 lg:transform lg:-translate-y-1/2">
-                            <div className="bg-white/90 p-4 md:p-6 lg:p-8 rounded-xl shadow-2xl w-full md:max-w-xs lg:max-w-md">
-                                <h2 className="text-lg md:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 lg:mb-4">
-                                    {item.title}
-                                </h2>
-                                <p className="text-xs md:text-base font-medium text-gray-700 mb-1 md:mb-3">
-                                    User Friendly Features:
-                                </p>
-                                <ul className="space-y-1 md:space-y-2 lg:space-y-3">
-                                    {item.details?.map((feature, idx) => (
-                                        <li
-                                            key={idx}
-                                            className="text-xs md:text-sm text-gray-700 flex items-start gap-2"
-                                        >
-                                            <svg
-                                                className="flex-shrink-0 w-3 h-3 md:w-4 md:h-4 text-green-500 mt-0.5"
-                                                fill="currentColor"
-                                                viewBox="0 0 20 20"
-                                            >
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                                    clipRule="evenodd"
-                                                />
-                                            </svg>
-                                            <span className="flex-1">{feature}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        </div>
+      <div className="h-[300px] md:h-[400px] lg:h-[700px] bg-gray-100 dark:bg-gray-800 rounded-xl animate-pulse"></div>
     );
+  }
+
+  if (error || slides.length === 0) {
+    return (
+      <div className="h-[300px] md:h-[400px] lg:h-[700px] flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-xl">
+        <div className="text-center p-4">
+          <p className="text-red-500 dark:text-red-400">{error || "No slides available"}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative overflow-hidden rounded-xl">
+      <Swiper
+        ref={swiperRef}
+        modules={[Autoplay, EffectFade, Navigation, Pagination]}
+        effect="fade"
+        loop={slides.length > 1}
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
+        }}
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        }}
+        pagination={{ 
+          clickable: true, 
+          dynamicBullets: true,
+          dynamicMainBullets: 3
+        }}
+        speed={800}
+        grabCursor
+        className="h-[300px] md:h-[400px] lg:h-[700px]"
+        preloadImages={false}
+        lazy={true}
+      >
+        {slides.map((slide, i) => (
+          <SwiperSlide key={i} className="!h-full">
+            <div className="relative w-full h-full">
+              <img
+                src={slide.img}
+                alt={slide.title}
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+                width="1200"
+                height="700"
+              />
+              <div className="absolute inset-0 bg-black/20"></div>
+              <div className="absolute bottom-6 left-6 right-6 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm p-4 rounded-xl shadow-lg max-w-md">
+                <h2 className="text-lg md:text-xl font-bold text-gray-800 dark:text-white mb-2">
+                  {slide.title}
+                </h2>
+                <ul className="space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                  {slide.details?.slice(0, 3).map((item, idx) => (
+                    <li key={idx}>• {item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      <div className="swiper-button-prev !hidden md:!flex !text-white !bg-black/30 hover:!bg-black/50 !w-10 !h-10 rounded-full after:!text-sm"></div>
+      <div className="swiper-button-next !hidden md:!flex !text-white !bg-black/30 hover:!bg-black/50 !w-10 !h-10 rounded-full after:!text-sm"></div>
+    </div>
+  );
 };
 
 export default SliderB;
