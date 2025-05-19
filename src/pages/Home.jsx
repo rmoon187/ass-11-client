@@ -19,7 +19,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="bg-white dark:text-white transition-all w-11/12 mx-auto space-y-10 my-14">
+        <div className=" dark:text-white transition-all w-11/12 mx-auto space-y-10 my-14">
             <SliderB />
             <RecentQueries queries={queries} />
             <HowItWorks />

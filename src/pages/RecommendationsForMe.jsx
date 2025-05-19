@@ -19,9 +19,9 @@ const RecommendationsForMe = () => {
     }, [user.email]);
 
     return (
-        <div className="container mx-auto px-4 py-6 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 py-6 sm:px-6 lg:px-8 dark:bg-gray-900 min-h-screen">
             <motion.h2
-                className="text-2xl sm:text-3xl font-bold text-center text-green-600 mb-6"
+                className="text-2xl sm:text-3xl font-bold text-center text-green-600 dark:text-green-400 mb-6"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
@@ -31,16 +31,16 @@ const RecommendationsForMe = () => {
 
             {recommendations.length > 0 ? (
                 <motion.div
-                    className="bg-white shadow-xl rounded-2xl overflow-hidden"
+                    className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl overflow-hidden"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8 }}
                 >
                     {/* Desktop Table */}
                     <div className="hidden md:block">
-                        <table className="w-full border border-gray-300">
+                        <table className="w-full border border-gray-300 dark:border-gray-600">
                             <thead>
-                                <tr className="bg-gradient-to-r from-blue-600 to-green-500 text-white">
+                                <tr className="bg-gradient-to-r from-blue-600 to-green-500 dark:from-blue-700 dark:to-green-600 text-white">
                                     <th className="p-3 text-left">Query Title</th>
                                     <th className="p-3 text-left">Recommendation</th>
                                     <th className="p-3 text-left">Product</th>
@@ -51,15 +51,19 @@ const RecommendationsForMe = () => {
                                 {recommendations.map((rec, index) => (
                                     <motion.tr
                                         key={rec._id}
-                                        className={`border-b transition-all duration-300 ${index % 2 === 0 ? 'bg-blue-50' : 'bg-green-50'} hover:bg-gradient-to-r from-green-200 to-blue-200`}
+                                        className={`border-b transition-all duration-300 ${
+                                            index % 2 === 0 
+                                                ? 'bg-blue-50 dark:bg-gray-700' 
+                                                : 'bg-green-50 dark:bg-gray-600'
+                                        } hover:bg-gradient-to-r from-green-200 to-blue-200 dark:from-green-700 dark:to-blue-700`}
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ duration: 0.4 }}
                                     >
-                                        <td className="p-3 text-gray-700">{rec.queryTitle}</td>
-                                        <td className="p-3 text-gray-700">{rec.RecommendationTitle}</td>
-                                        <td className="p-3 text-gray-700">{rec.RecommendedProductName}</td>
-                                        <td className="p-3 text-gray-700">{rec.recommenderEmail}</td>
+                                        <td className="p-3 text-gray-700 dark:text-gray-300">{rec.queryTitle}</td>
+                                        <td className="p-3 text-gray-700 dark:text-gray-300">{rec.RecommendationTitle}</td>
+                                        <td className="p-3 text-gray-700 dark:text-gray-300">{rec.RecommendedProductName}</td>
+                                        <td className="p-3 text-gray-700 dark:text-gray-300">{rec.recommenderEmail}</td>
                                     </motion.tr>
                                 ))}
                             </tbody>
@@ -71,27 +75,27 @@ const RecommendationsForMe = () => {
                         {recommendations.map((rec) => (
                             <motion.div
                                 key={rec._id}
-                                className="bg-white border border-gray-200 rounded-lg shadow p-4"
+                                className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow p-4"
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.3 }}
                             >
                                 <div className="space-y-3">
                                     <div>
-                                        <span className="font-semibold">Query: </span>
-                                        <span className="text-gray-700">{rec.queryTitle}</span>
+                                        <span className="font-semibold dark:text-white">Query: </span>
+                                        <span className="text-gray-700 dark:text-gray-300">{rec.queryTitle}</span>
                                     </div>
                                     <div>
-                                        <span className="font-semibold">Recommendation: </span>
-                                        <span className="text-gray-700">{rec.RecommendationTitle}</span>
+                                        <span className="font-semibold dark:text-white">Recommendation: </span>
+                                        <span className="text-gray-700 dark:text-gray-300">{rec.RecommendationTitle}</span>
                                     </div>
                                     <div>
-                                        <span className="font-semibold">Product: </span>
-                                        <span className="text-gray-700">{rec.RecommendedProductName}</span>
+                                        <span className="font-semibold dark:text-white">Product: </span>
+                                        <span className="text-gray-700 dark:text-gray-300">{rec.RecommendedProductName}</span>
                                     </div>
                                     <div>
-                                        <span className="font-semibold">From: </span>
-                                        <span className="text-gray-700">{rec.recommenderEmail}</span>
+                                        <span className="font-semibold dark:text-white">From: </span>
+                                        <span className="text-gray-700 dark:text-gray-300">{rec.recommenderEmail}</span>
                                     </div>
                                 </div>
                             </motion.div>
@@ -100,7 +104,7 @@ const RecommendationsForMe = () => {
                 </motion.div>
             ) : (
                 <motion.div
-                    className="text-gray-500 text-center mt-10 p-6 bg-white rounded-lg shadow"
+                    className="text-gray-500 dark:text-gray-400 text-center mt-10 p-6 bg-white dark:bg-gray-800 rounded-lg shadow"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
