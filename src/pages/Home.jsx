@@ -1,9 +1,10 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner"; // Assume we have a custom loading component
+import { slides } from "../constants";
 
 // Lazy load components with prefetching
-const SliderB = lazy(() => import("../components/SliderB"));
+const OptimizedSwiper = lazy(() => import("../components/slider/OptimizedSwiper"));
 const RecentQueries = lazy(() => import("../components/RecentQueries"));
 const HowItWorks = lazy(() => import("../components/HowItWorks"));
 const WhyChooseUs = lazy(() => import("../components/WhyChooseUs"));
@@ -49,29 +50,30 @@ const Home = () => {
 
   // Preload components during idle time
   useEffect(() => {
-    const preloadComponents = () => {
-      const components = [
-        import("../components/SliderB"),
-        import("../components/RecentQueries"),
-        import("../components/HowItWorks"),
-        import("../components/WhyChooseUs"),
-        import("../components/TrendingProducts")
-      ];
-      
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => {
-          components.forEach(component => component().catch(() => {}));
-        });
-      } else {
-        const timer = setTimeout(() => {
-          components.forEach(component => component().catch(() => {}));
-        }, 2000);
-        return () => clearTimeout(timer);
-      }
-    };
+  const preloadComponents = () => {
+    const components = [
+      import("../components/slider/OptimizedSwiper"),
+      import("../components/RecentQueries"),
+      import("../components/HowItWorks"),
+      import("../components/WhyChooseUs"),
+      import("../components/TrendingProducts")
+    ];
 
-    preloadComponents();
-  }, []);
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        components.forEach(promise => promise.catch(() => {}));
+      });
+    } else {
+      const timer = setTimeout(() => {
+        components.forEach(promise => promise.catch(() => {}));
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  };
+
+  preloadComponents();
+}, []);
+
 
   // Fetch data with cancellation
   useEffect(() => {
@@ -118,9 +120,9 @@ const Home = () => {
   if (error) return <ErrorScreen error={error} />;
 
   return (
-    <main className="dark:text-white w-full max-w-7xl mx-auto my-14 space-y-20 px-4 sm:px-6 lg:px-8">
-      <Section fallback="Slider failed to load" heightClass="lg:h-[700px]">
-        <SliderB />
+    <main className="dark:text-white w-full max-w-screen-xl mx-auto my-14 space-y-20 px-4 sm:px-6 lg:px-8">
+      <Section fallback="Slider failed to load">
+        <OptimizedSwiper slides={slides}/>
       </Section>
 
       <Section fallback="Recent Queries failed to load">
