@@ -56,3 +56,30 @@
    ```bash
    git clone https://github.com/your-username/recomhub.git
    cd recomhub
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+
+   ```
+
+3. **Set up environment variables**
+   ```env
+   VITE_FIREBASE_API_KEY=your_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+   VITE_FIREBASE_PROJECT_ID=your_project_id
+   VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+   VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+   VITE_FIREBASE_APP_ID=your_app_id
+   ```
+4. **Start the development server**
+
+   ```bash
+   npm run dev
+
+   ```
+## 🌐 Live Project Link
+
+🔗 [Explore RecomHub (Client)](https://fir-first-p.web.app/)  
+_(Click the link to view the live deployed frontend)_      
